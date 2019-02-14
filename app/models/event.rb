@@ -3,6 +3,9 @@ require "google/api_client/client_secrets.rb"
 
 class Event < ApplicationRecord
 
+  has_many :guests, inverse_of: :event
+  accepts_nested_attributes_for :guests, reject_if: :all_blank, allow_destroy: true
+
   CALENDAR_ID = 'primary'
 
   belongs_to :user, optional: true

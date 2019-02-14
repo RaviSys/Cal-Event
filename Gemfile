@@ -66,3 +66,4 @@ gem "omniauth-google-oauth2"
 gem 'jquery-rails'
 gem 'google-api-client', '~> 0.11'
 gem 'bootstrap', '~> 4.3.1'
+gem "cocoon"

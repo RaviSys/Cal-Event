@@ -1,0 +1,10 @@
+<div class="nested-fields">
+  <div class="form-group row">
+    <div class="col-md-9">
+      <%= f.email_field :email, class: "form-control rounded-0", placeholder: "Guest Email" %>
+    </div>
+    <div class="col-md-3">
+      <%= link_to_remove_association "Remove Guest", f, class: "btn btn-danger rounded-0" %>
+    </div>
+  </div>
+</div>

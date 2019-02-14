@@ -14,5 +14,6 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require cocoon
 //= require activestorage
 //= require turbolinks
