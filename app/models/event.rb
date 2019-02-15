@@ -3,7 +3,7 @@ require "google/api_client/client_secrets.rb"
 
 class Event < ApplicationRecord
 
-  has_many :guests, inverse_of: :event
+  has_many :guests, dependent: :destroy
   accepts_nested_attributes_for :guests, reject_if: :all_blank, allow_destroy: true
 
   CALENDAR_ID = 'primary'
@@ -43,7 +43,8 @@ class Event < ApplicationRecord
   def create_google_event(event, user)
     client = get_google_calendar_client user
     g_event = get_event(event)
-    client.insert_event(Event::CALENDAR_ID, g_event)
+    ge = client.insert_event(Event::CALENDAR_ID, g_event)
+    event.update(google_event_id: ge.id)
   end
 
   def edit_google_event(event, user)
@@ -60,21 +61,29 @@ class Event < ApplicationRecord
       description: event.description,
       start: {
         date_time: event.start_date.to_datetime.to_s,
-        time_zone: 'America/Los_Angeles', 
+        time_zone: 'Asia/Tokyo', 
       },
       end: {
         date_time: event.end_date.to_datetime.to_s,
-        time_zone: 'America/Los_Angeles',
+        time_zone: 'Asia/Tokyo',
       },
-      recurrence: [
-        'RRULE:FREQ=DAILY;COUNT=2'
-      ],
-      attendees: event.members.split(",").map {|member_email| {email: member_email}},
+      attendees: event.guests.map {|guest| {email: guest.email}},
       reminders: {
         use_default: false
       }
     })
     # result = client.insert_event(Event::CALENDAR_ID, event)
+  end
+
+  def delete_google_event(google_event_id, user)
+    client = get_google_calendar_client user
+    client.delete_event(Event::CALENDAR_ID, google_event_id)
+  end
+
+  def get_google_event(event_id, user)
+    client = get_google_calendar_client user
+    g_event = client.get_event(Event::CALENDAR_ID, event_id)
+    puts g_event
   end
 
 

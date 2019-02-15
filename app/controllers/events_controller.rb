@@ -44,7 +44,7 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    delete_google_event(@event.title, current_user)
+    @event.delete_google_event(@event.google_event_id, current_user)
     @event.destroy
     respond_to do |format|
       format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
@@ -57,16 +57,6 @@ class EventsController < ApplicationController
     event = get_event(event)
     event = Google::Apis::CalendarV3::Event.new(event)
     client.update_event(Event::CALENDAR_ID, event.id, event)
-  end
-
-  def delete_google_event(event_id, user)
-    client = get_google_calendar_client user
-    client.delete_event(Event::CALENDAR_ID, event_id)
-  end
-
-  def get_google_event(event_id, user)
-    client = get_google_calendar_client user
-    client.get_event(Event::CALENDAR_ID, event_id)
   end
 
   private
