@@ -59,7 +59,11 @@ module GoogleCalendarApi
         date_time: event.end_date.to_datetime.to_s,
         time_zone: 'Asia/Tokyo',
       },
-      attendees: event.guests.map {|guest| {email: guest.email}},
+      organizer: {
+        email: event.user.email, 
+        displayName: event.user.name
+      },
+      attendees: event_attendees(event),
       reminders: {
         use_default: false
       }
@@ -76,4 +80,9 @@ module GoogleCalendarApi
     g_event = client.get_event(Event::CALENDAR_ID, event_id)
     puts g_event
   end
+
+  def event_attendees(event)
+    event.guests.map {|guest| { email: guest.email }} << { email: event.user.email, displayName: event.user.name, organizer: true }
+  end
+
 end

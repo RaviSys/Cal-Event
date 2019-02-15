@@ -9,12 +9,12 @@ class Event < ApplicationRecord
 
   validates :title, :description, :start_date, :end_date, :venue, presence: true
 
-  validate :guests_must_be_present, on: :create
+  # validate :guests_must_be_present, on: :create
 
-  def guests_must_be_present
-    if guests.count < 1
-      errors.add(:you, "can not create events without adding any guest. At least one guest must be present for event")
-    end
-  end
+  # def guests_must_be_present
+  #   if guests.count < 1
+  #     errors.add(:you, "can not create events without adding any guest. At least one guest must be present for event")
+  #   end
+  # end
 
 end
