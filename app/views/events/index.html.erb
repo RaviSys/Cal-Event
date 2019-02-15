@@ -25,7 +25,7 @@
         </tbody>
       </table>
       <%= link_to 'New Event', new_event_path, class: "btn btn-primary rounded-0" %>
-      <%= link_to 'View Calendar', event_calendar_events_path, class: "btn btn-primary rounded-0" %>
+      <%= link_to 'View Calendar', event_calendar_events_path, class: "btn btn-primary rounded-0", data: { turbolinks: false } %>
     </div>
   </div>
 </div>
