@@ -15,6 +15,8 @@
 //= require popper
 //= require bootstrap
 //= require cocoon
+//= require moment.min
+//= require fullcalendar.min
 //= require autocomplete
 //= require activestorage
 //= require turbolinks

@@ -52,6 +52,22 @@ class EventsController < ApplicationController
     end
   end
 
+  def event_calendar
+  end
+
+  def events_for_calendar
+    @events = []
+    Event.all.each do |event|
+      @events << {
+        title: event.title,
+        start: event.start_date.strftime("%Y-%m-%d"), 
+        start: event.end_date.strftime("%Y-%m-%d"),
+        url: event_path(event)
+      }
+    end
+    render json: @events
+  end
+
   private
 
     def set_event
