@@ -15,5 +15,6 @@
 //= require popper
 //= require bootstrap
 //= require cocoon
+//= require autocomplete
 //= require activestorage
 //= require turbolinks

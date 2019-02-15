@@ -52,13 +52,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # def edit_google_event(event, user)
-  #   client = get_google_calendar_client user
-  #   event = get_event(event)
-  #   event = Google::Apis::CalendarV3::Event.new(event)
-  #   client.update_event(Event::CALENDAR_ID, event.id, event)
-  # end
-
   private
 
     def set_event
