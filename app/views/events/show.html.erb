@@ -1,29 +1,43 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 mx-md-auto">
+      <p id="notice"><%= notice %></p>
+      <div class="card rounded-0 mt-5 mb-5">
+        <div class="card-body">
+          <p>
+            <strong>Title:</strong>
+            <%= @event.title %>
+          </p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @event.title %>
-</p>
+          <p>
+            <strong>Description:</strong>
+            <%= @event.description %>
+          </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
+          <p>
+            <strong>Start date:</strong>
+            <%= @event.start_date.strftime("%Y-%m-%d %H:%M:%S %p") %>
+          </p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @event.start_date %>
-</p>
+          <p>
+            <strong>End date:</strong>
+            <%= @event.end_date.strftime("%Y-%m-%d %H:%M:%S %p") %>
+          </p>
 
-<p>
-  <strong>End date:</strong>
-  <%= @event.end_date %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @event.user %>
-</p>
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+          <p>
+            <strong>Organizer:</strong>
+            <%= @event.user.name %>
+          </p>
+          <p>
+            <strong>Guests:</strong>
+            <% @event.guests.each do |guest| %>
+              <span class="badge badge-primary ml-2"><%= guest.email %></span>
+            <% end %>
+          </p>
+          <%= link_to 'Edit', edit_event_path(@event), class: "btn btn-secondary btn-sm rounded-0" %>
+          <%= link_to 'Go to Event List', events_path, class: "btn btn-primary btn-sm rounded-0" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
