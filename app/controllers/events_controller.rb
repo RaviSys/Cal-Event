@@ -33,7 +33,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        # @event.edit_google_event(@event, current_user)
+        @event.edit_google_event(@event.google_event_id, current_user, @event)
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else
@@ -52,12 +52,12 @@ class EventsController < ApplicationController
     end
   end
 
-  def edit_google_event(event, user)
-    client = get_google_calendar_client user
-    event = get_event(event)
-    event = Google::Apis::CalendarV3::Event.new(event)
-    client.update_event(Event::CALENDAR_ID, event.id, event)
-  end
+  # def edit_google_event(event, user)
+  #   client = get_google_calendar_client user
+  #   event = get_event(event)
+  #   event = Google::Apis::CalendarV3::Event.new(event)
+  #   client.update_event(Event::CALENDAR_ID, event.id, event)
+  # end
 
   private
 

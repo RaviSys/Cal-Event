@@ -47,11 +47,11 @@ class Event < ApplicationRecord
     event.update(google_event_id: ge.id)
   end
 
-  def edit_google_event(event, user)
-    # client = get_google_calendar_client user
-    # g_event = get_event(event)
-    # # event = Google::Apis::CalendarV3::Event.new(event)
-    # client.update_event(Event::CALENDAR_ID, g_event.id, g_event)
+  def edit_google_event(google_event_id, user, event)
+    client = get_google_calendar_client user
+    g_event = client.get_event(Event::CALENDAR_ID, google_event_id)
+    ge = get_event(event)
+    client.update_event(Event::CALENDAR_ID, google_event_id, ge)
   end
 
   def get_event(event)
@@ -72,7 +72,6 @@ class Event < ApplicationRecord
         use_default: false
       }
     })
-    # result = client.insert_event(Event::CALENDAR_ID, event)
   end
 
   def delete_google_event(google_event_id, user)
