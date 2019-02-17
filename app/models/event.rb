@@ -5,6 +5,8 @@ class Event < ApplicationRecord
   has_many :guests, dependent: :destroy
   accepts_nested_attributes_for :guests, reject_if: :all_blank, allow_destroy: true
 
+  acts_as_taggable_on :tags
+
   CALENDAR_ID = 'primary'
 
   validates :title, presence: true

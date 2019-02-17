@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.4.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
@@ -67,3 +67,4 @@ gem 'jquery-rails'
 gem 'google-api-client', '~> 0.11'
 gem 'bootstrap', '~> 4.3.1'
 gem "cocoon"
+gem 'acts-as-taggable-on', '~> 6.0'
