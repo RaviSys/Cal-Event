@@ -39,6 +39,12 @@ module GoogleCalendarApi
     event.update(google_event_id: ge.id)
   end
 
+  def add_quick_google_event(event, user)
+    client = get_google_calendar_client user
+    ge = client.quick_add_event(Event::CALENDAR_ID, event.title)
+    event.update(google_event_id: ge.id)
+  end
+
   def edit_google_event(google_event_id, user, event)
     client = get_google_calendar_client user
     g_event = client.get_event(Event::CALENDAR_ID, google_event_id)

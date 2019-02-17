@@ -7,7 +7,16 @@ class Event < ApplicationRecord
 
   CALENDAR_ID = 'primary'
 
-  validates :title, :description, :start_date, :end_date, :venue, presence: true
+  validates :title, presence: true
+
+  before_create :set_default_timing
+
+  def set_default_timing
+    if self.start_date.nil? && self.end_date.nil?
+      self.start_date = DateTime.now
+      self.end_date = DateTime.now + 1.hour
+    end
+  end
 
   # validate :guests_must_be_present, on: :create
 

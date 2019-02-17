@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     collection do 
       get :event_calendar
       get :events_for_calendar
+      post :add_quick_event
     end
   end
   root 'home#index'

@@ -68,6 +68,16 @@ class EventsController < ApplicationController
     render json: @events
   end
 
+  def add_quick_event
+    @event = Event.new(event_params)
+    respond_to do |format|  
+      if @event.save
+        @event.add_quick_google_event(@event, current_user)
+        format.html { redirect_to event_calendar_events_path, notice: 'Quick Event was successfully created.' }
+      end
+    end
+  end
+
   private
 
     def set_event
