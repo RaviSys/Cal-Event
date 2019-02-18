@@ -13,6 +13,14 @@ class Event < ApplicationRecord
 
   before_create :set_default_timing
 
+  # Event Filter Scopes
+  scope :upcoming_events, -> { where('start_date > ?', DateTime.now) }  
+  scope :past_events, -> { where('end_date < ?', DateTime.now) }  
+  scope :current_week_events, -> { where('start_date >= ? AND end_date <= ?',current_week_beginning, current_week_ending) }
+  scope :next_week_events, -> { where('start_date >= ? AND end_date <= ?',next_week_beginning, next_week_ending) }
+  scope :current_month_events, -> { where('start_date >= ? AND end_date <= ?',current_month_beginning, current_month_ending) }
+  scope :next_month_events, -> { where('start_date >= ? AND end_date <= ?',next_month_beginning, next_month_ending) }
+
   def set_default_timing
     if self.start_date.nil? && self.end_date.nil?
       self.start_date = DateTime.now
@@ -20,12 +28,36 @@ class Event < ApplicationRecord
     end
   end
 
-  # validate :guests_must_be_present, on: :create
+  def self.current_week_beginning
+    DateTime.now.beginning_of_week
+  end
 
-  # def guests_must_be_present
-  #   if guests.count < 1
-  #     errors.add(:you, "can not create events without adding any guest. At least one guest must be present for event")
-  #   end
-  # end
+  def self.current_week_ending
+    DateTime.now.end_of_week
+  end
+
+  def self.next_week_beginning
+    DateTime.now.end_of_week + 1.day
+  end
+
+  def self.next_week_ending
+    (DateTime.now.end_of_week + 1.day).end_of_week
+  end
+
+  def self.current_month_beginning
+    DateTime.now.beginning_of_month
+  end
+
+  def self.current_month_ending
+    DateTime.now.end_of_month
+  end
+
+  def self.next_month_beginning
+    DateTime.now.end_of_month + 1.day
+  end
+
+  def self.next_month_ending
+    (DateTime.now.end_of_month + 1.day).end_of_month
+  end
 
 end
