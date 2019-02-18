@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-10 mx-md-auto">
+    <div class="col-md-7">
       <p id="notice"><%= notice %></p>
       <div class="card rounded-0 mt-5 mb-5">
         <div class="card-body">
@@ -50,5 +50,30 @@
         </div>
       </div>
     </div>
+    <div class="col-md-5">
+      <div id="map" class="mt-5 mb-5"></div>
+    </div>
   </div>
 </div>
+
+<script>
+  function initMap() {
+    var venue = {lat: <%= @event.latitude %>, lng: <%= @event.longitude %>};
+    var map = new google.maps.Map(
+      document.getElementById('map'), 
+      {zoom: 12, center: venue}
+    );
+
+    var infowindow = new google.maps.InfoWindow({
+      content: "<h3 style='color:#333;'><%= @event.title %></h3>" + "<p><%= @event.venue %></p>"
+    });
+    var marker = new google.maps.Marker({position: venue, map: map});
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.google_map_api_key %>&callback=initMap">
+</script>
