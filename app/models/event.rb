@@ -1,5 +1,7 @@
 class Event < ApplicationRecord
   include GoogleCalendarApi
+  
+  CALENDAR_ID = 'primary'
 
   belongs_to :user, optional: true
   has_many :guests, dependent: :destroy
@@ -7,7 +9,6 @@ class Event < ApplicationRecord
 
   acts_as_taggable_on :tags
 
-  CALENDAR_ID = 'primary'
 
   validates :title, presence: true
 
