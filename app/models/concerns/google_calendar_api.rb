@@ -2,6 +2,9 @@ require "google/apis/calendar_v3"
 require "google/api_client/client_secrets.rb"
 
 module GoogleCalendarApi
+
+  include ActiveSupport::Concern
+  
   def get_google_calendar_client current_user
     client = Google::Apis::CalendarV3::CalendarService.new
     return unless (current_user.present? && current_user.access_token.present? && current_user.refresh_token.present?)
@@ -84,7 +87,7 @@ module GoogleCalendarApi
   def get_google_event(event_id, user)
     client = get_google_calendar_client user
     g_event = client.get_event(Event::CALENDAR_ID, event_id)
-    puts g_event
+    # puts g_event
   end
 
   def event_attendees(event)

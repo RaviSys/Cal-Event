@@ -5,6 +5,9 @@ Rails.application.routes.draw do
       get :events_for_calendar
       post :add_quick_event
     end
+    member do 
+      patch :sync_event_with_google
+    end
   end
   root 'home#index'
   devise_for :users, controllers: { 
