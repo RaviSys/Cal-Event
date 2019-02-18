@@ -42,9 +42,11 @@
               <% end %>
             </p>
           <% end %>
-          <%= link_to 'Edit', edit_event_path(@event), class: "btn btn-secondary btn-sm rounded-0" %>
           <%= link_to 'Go to Event List', events_path, class: "btn btn-primary btn-sm rounded-0" %>
-          <%= link_to "Sync with Google Calendar", sync_event_with_google_event_path(@event), class: "btn btn-primary btn-sm rounded-0", method: :patch %>
+          <% if user_signed_in? %>
+            <%= link_to 'Edit', edit_event_path(@event), class: "btn btn-secondary btn-sm rounded-0" %>
+            <%= link_to "Sync with Google Calendar", sync_event_with_google_event_path(@event), class: "btn btn-primary btn-sm rounded-0", method: :patch %>
+          <% end %>
         </div>
       </div>
     </div>

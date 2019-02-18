@@ -18,13 +18,18 @@
               <td><%= event.title %></td>
               <td><%= event.user.name %></td>
               <td><%= link_to 'Show', event, class: "btn btn-info rounded-0 btn-sm" %></td>
-              <td><%= link_to 'Edit', edit_event_path(event), class: "btn btn-secondary rounded-0 btn-sm" %></td>
-              <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger rounded-0 btn-sm" %></td>
+              <% if user_signed_in? %>
+                <td><%= link_to 'Edit', edit_event_path(event), class: "btn btn-secondary rounded-0 btn-sm" %></td>
+                <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger rounded-0 btn-sm" %></td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>
       </table>
-      <%= link_to 'New Event', new_event_path, class: "btn btn-primary rounded-0" %>
+      <% if user_signed_in? %>
+        <%= link_to 'New Event', new_event_path, class: "btn btn-primary rounded-0" %>
+        <%= link_to 'Sync All Events with Google', sync_all_user_events_with_google_events_path, class: "btn btn-primary rounded-0", method: :patch %>
+      <% end %>
       <%= link_to 'View Calendar', event_calendar_events_path, class: "btn btn-primary rounded-0", data: { turbolinks: false } %>
     </div>
   </div>

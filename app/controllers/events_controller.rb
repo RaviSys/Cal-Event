@@ -1,9 +1,13 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show, :event_calendar, :events_for_calendar]
 
   def index
-    @events = current_user.events
+    if user_signed_in? 
+      @events = current_user.events
+    else 
+      @events = Event.all
+    end
   end
 
   def show
@@ -93,7 +97,36 @@ class EventsController < ApplicationController
       end
     end
 
-    redirect_to event_path(@event), notice: "Event has been synced sussessfully."
+    redirect_to event_path(@event), notice: "Event has been synced with google successfully."
+
+  end
+
+  def sync_all_user_events_with_google
+
+    @events = current_user.events
+
+    @events.each do |event|
+      ge = event.get_google_event(event.google_event_id, event.user)
+
+      event_guests = event.guests.map {|guest| { email: guest.email, name: guest.email, organizer: guest.is_organizer }} << { email: event.user.email, name: event.user.name, organizer: true }
+
+      if ge.attendees.present?
+        google_guests = ge.attendees.map {|attendee| {email: attendee.email, name: attendee.display_name, organizer: attendee.organizer}}.compact
+      else 
+        google_guests = []
+      end
+
+      unless google_guests.empty?
+        google_guests.each do |google_guest|
+          guest = Guest.find_by(email: google_guest[:email], event_id: event.id)
+          unless guest.present? 
+            Guest.create(email: google_guest[:email], name: google_guest[:name], is_organizer: google_guest[:organizer], event_id: event.id)
+          end
+        end
+      end  
+    end
+
+    redirect_to events_path, notice: "All events has been synced with google successfully."
 
   end
 
