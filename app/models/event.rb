@@ -8,6 +8,8 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :guests, reject_if: :all_blank, allow_destroy: true
 
   acts_as_taggable_on :tags
+  geocoded_by :venue
+  after_validation :geocode
 
   validates :title, presence: true
 

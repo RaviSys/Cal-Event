@@ -69,3 +69,4 @@ gem 'bootstrap', '~> 4.3.1'
 gem "cocoon"
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'rubyzip'
+gem 'geocoder'
