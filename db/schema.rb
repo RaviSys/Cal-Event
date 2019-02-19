@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_18_091126) do
+ActiveRecord::Schema.define(version: 2019_02_19_140603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,19 @@ ActiveRecord::Schema.define(version: 2019_02_18_091126) do
     t.string "name"
     t.boolean "is_organizer"
     t.index ["event_id"], name: "index_guests_on_event_id"
+  end
+
+  create_table "speakers", force: :cascade do |t|
+    t.string "name"
+    t.string "profile_image"
+    t.string "about"
+    t.string "organization"
+    t.string "city"
+    t.string "country"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_speakers_on_event_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -95,4 +108,5 @@ ActiveRecord::Schema.define(version: 2019_02_18_091126) do
 
   add_foreign_key "events", "users"
   add_foreign_key "guests", "events"
+  add_foreign_key "speakers", "events"
 end

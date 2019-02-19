@@ -84,6 +84,17 @@
     </div>
   </div>
 
+  <div id="guests">
+    <h3>Add speakers this event</h3>
+    <hr>
+    <%= f.fields_for :speakers do |speaker| %>
+      <%= render 'speaker_fields', f: speaker %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association 'Add Speaker', f, :speakers, class: "btn btn-primary rounded-0 mb-3" %>
+    </div>
+  </div>
+
   <div class="actions">
     <%= f.submit class: "btn btn-primary rounded-0" %>
     <%= link_to 'Cancel', events_path, class: "btn btn-outline-secondary rounded-0" %>
