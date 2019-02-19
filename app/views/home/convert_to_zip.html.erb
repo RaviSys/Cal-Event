@@ -1,0 +1,20 @@
+<div class="jumbotron">
+  <% if flash[:success].present? %>
+    <div class="alert alert-success">
+      <%= flash[:success] %>
+    </div>
+  <% end %>
+  <h1 class="lead text-center">Paste a local folder path to convert into zip</h1>
+  <div class="card rounded-0">
+    <div class="card-body">
+      <%= form_for :path_to_zip, url: :to_zip, method: :post do |f| %>
+        <div class="form-group row">
+          <div class="col-12">
+            <%= f.text_field :folder_path, class: "form-control rounded-0", placeholder: "Paste the folder path here and hit enter" %>
+          </div>
+          <%= f.submit style: "display:none;" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

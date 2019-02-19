@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     end
   end
   root 'home#index'
+  get 'zip' => "home#convert_to_zip"
+  post 'to_zip' => "home#to_zip"
   devise_for :users, controllers: { 
     :omniauth_callbacks => "users/omniauth_callbacks" 
   }
