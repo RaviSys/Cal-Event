@@ -9,7 +9,6 @@ class Event < ApplicationRecord
 
   acts_as_taggable_on :tags
 
-
   validates :title, presence: true
 
   before_create :set_default_timing

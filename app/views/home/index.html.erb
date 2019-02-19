@@ -10,3 +10,31 @@
     <%= link_to "View All Events", events_path, class: "btn btn-primary rounded-0" %>
   <% end %>
 </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 mx-md-auto">
+      <div class="card rounded-0">
+        <div class="card-body">
+          <%= form_for :search, url: :search_events, method: :get, html: {class: "mt-3"} do |f| %>
+            <%= f.hidden_field :latitude, id: :lat %>
+            <%= f.hidden_field :longitude, id: :long %>
+            <div class="form-group row">
+              <div class="col-md-9">
+                <%= f.text_field :venue, class: "form-control rounded-0", placeholder: "Enter your location", onFocus: "geolocateEvent()", id: :autocomplete_search %>
+              </div>
+              <div class="col-md-3">
+                <%= f.submit "Search", class: "btn btn-primary rounded-0 btn-block" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script 
+  src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.google_map_api_key %>&libraries=places&callback=autocompleteEvent"
+  async defer>
+</script>

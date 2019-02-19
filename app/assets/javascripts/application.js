@@ -18,5 +18,6 @@
 //= require moment.min
 //= require fullcalendar.min
 //= require autocomplete
+//= require event_autocomplete
 //= require activestorage
 //= require turbolinks

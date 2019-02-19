@@ -16,4 +16,7 @@ class HomeController < ApplicationController
     redirect_to zip_path, flash: { success: "Your zip has been prepared successfully. You can find it here: #{zip_folder_name}" }
   end
 
+  def search_events
+  end
+
 end

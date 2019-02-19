@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'zip' => "home#convert_to_zip"
   post 'to_zip' => "home#to_zip"
+  get '/search_events' => "home#search_events"
   devise_for :users, controllers: { 
     :omniauth_callbacks => "users/omniauth_callbacks" 
   }
