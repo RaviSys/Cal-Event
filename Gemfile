@@ -70,3 +70,6 @@ gem "cocoon"
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'rubyzip'
 gem 'geocoder'
+gem 'carrierwave', '~> 1.0'
+gem 'fog-aws'
+gem 'apartment'
